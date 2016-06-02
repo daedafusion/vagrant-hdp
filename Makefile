@@ -1,13 +1,11 @@
-all: prep repo hostname update install setup keys start
-
-repo:
-	sudo cp ambari.repo /etc/yum.repos.d/ambari.repo
-
-update:
-	sudo yum update
+all: prep hostname install setup keys start
 
 install:
-	sudo yum install ambari-server
+	sudo wget -nv http://public-repo-1.hortonworks.com/ambari/ubuntu14/2.x/updates/2.2.2.0/ambari.list -O /etc/apt/sources.list.d/ambari.list
+	sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
+	sudo apt-get update
+	sudo apt-get -y upgrade
+	sudo apt-get -y install ambari-server
 
 setup:
 	sudo ambari-server setup
@@ -26,11 +24,11 @@ hostname:
 	echo "192.168.33.10     hdp" | sudo tee -a /etc/hosts
 
 prep:
-	sudo yum install ntp
-	sudo service ntpd start
-	sudo chkconfig ntpd on
-	sudo service iptables stop
-	sudo chkconfig iptables off
+	sudo apt-get -y install ntp
+	sudo service ntp start
+	sudo chkconfig ntp on
+	#sudo service iptables stop
+	#sudo chkconfig iptables off
 
 filters:
 	sudo cp hbase-filters-1.0-SNAPSHOT.jar /filters/.
