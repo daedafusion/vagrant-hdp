@@ -20,4 +20,4 @@ Open a browser to your vagrant host on port 8080 (recommend setting an alias in 
 
 - Install HDP 2.4
 - Target Hosts: hdp
-- Host Registration Information: Paste in private key, set username to vagrant
+- Host Registration Information: Paste in private key, set username to `ubuntu`

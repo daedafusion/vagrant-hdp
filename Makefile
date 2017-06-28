@@ -1,7 +1,9 @@
 all: prep hostname install setup keys start
 
+APT_REPO_LIST:=http://public-repo-1.hortonworks.com/ambari/ubuntu16/2.x/updates/2.5.1.0/ambari.list
+
 install:
-	sudo wget -nv http://public-repo-1.hortonworks.com/ambari/ubuntu14/2.x/updates/2.2.2.0/ambari.list -O /etc/apt/sources.list.d/ambari.list
+	sudo wget -nv ${APT_REPO_LIST} -O /etc/apt/sources.list.d/ambari.list
 	sudo apt-key adv --recv-keys --keyserver keyserver.ubuntu.com B9733A7A07513CAD
 	sudo apt-get update
 	sudo apt-get -y upgrade
@@ -26,7 +28,7 @@ hostname:
 prep:
 	sudo apt-get -y install ntp
 	sudo service ntp start
-	sudo chkconfig ntp on
+	#sudo chkconfig ntp on
 	#sudo service iptables stop
 	#sudo chkconfig iptables off
 
